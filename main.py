@@ -2,7 +2,7 @@ class VirtualMachine:
     def __init__(self):
         self._memory = []
         self._accumulator = "0000"
-        with open("Test2.txt", "r") as file:
+        with open("Test1.txt", "r") as file:
             for line in file:
                 self._memory.append(line.strip("+").strip("\n"))
 
@@ -13,8 +13,8 @@ class VirtualMachine:
         return self._accumulator
 
     def __str__(self):
-        text = "------------------------\n"
-        text += "Memory:\n"
+        text = "\n------------------------\n"
+        text += "Resulting Memory:\n"
         for i in self._memory:
             text += f"{i},\n"
         text += "\nAccumulator:\n"
@@ -23,36 +23,40 @@ class VirtualMachine:
         return text
     
     def run(self):
+        # Iterating through memory and performing corresponding opperations
+
         count = 0
         while True:
             curr = self._memory[count][0:2]
 
             if curr == "43":
+                # Halt the program
                 break
-            elif curr == "33":
-                self.multiply(self._memory[int(self._memory[count][2:4])])
-            elif curr == "32":
-                self.divide(self._memory[int(self._memory[count][2:4])])
+
             elif curr == "40":
+                # Branch to a different location in memory
                 count = int(self._memory[count][2:4]) - 1
+
+            elif curr == "33":
+                # Checks if memory address is invalid. 
+                if int(self._memory[count][2:4]) > len(self._memory) - 1:
+                    raise IndexError("Invalid Memory Address")
+                # Multiplies nth element by Acc. Value. 
+                self.multiply(self._memory[int(self._memory[count][2:4])])
+
+            elif curr == "32":
+                # Checks if memory address is invalid. 
+                if int(self._memory[count][2:4]) > len(self._memory) - 1:
+                    raise IndexError("Invalid Memory Address")
+                # Divides nth element by Acc. Value. 
+                self.divide(self._memory[int(self._memory[count][2:4])])
+
             elif len(self._memory) == count:
+                # Check if there are more instructions. 
                 raise IndexError("No More Executable Instructions")
             
             count += 1
         print(self)
-
-        """
-        for i in range(0, len(self._memory)):
-            curr = self._memory[i][0:2]
-            if curr == "43":
-                break
-            elif curr == "33":
-                self.multiply(self._memory[int(self._memory[i][2:4])])
-            elif curr == "32":
-                self.divide(self._memory[int(self._memory[i][2:4])])
-            elif curr == "40":
-                curr = 
-        print(self)"""
 
     def read(self):
         pass
@@ -72,21 +76,31 @@ class VirtualMachine:
     def subtract(self):
         pass
 
-    def divide(self, curr):
+    def divide(self, curr): # Cole
+
+        # Divides the desired value by the amount in the Acc. and leaves the result in the Acc. 
         self._accumulator = str(int(curr) // int(self._accumulator))
+
+        # Adds 0's to ensure the Acc. is always 4 digits.
         while len(self.get_accumulator()) != 4:
             self._accumulator = "0" + self._accumulator
 
-    def multiply(self, curr):
+    def multiply(self, curr): # Cole
+        
+        # Multiplies the desired value by the amount in the Acc. and leaves result in the Acc.
         self._accumulator = str(int(curr) * int(self._accumulator))
+
+        # Adds 0's to ensure the Acc. is always 4 digits.
         while len(self.get_accumulator()) < 4:
             self._accumulator = "0" + self._accumulator
+
+        # Exception if result is larger than 4 digits.
         if len(self.get_accumulator()) > 4:
             raise ValueError(f"Value Overflow; Accumlulator only supports up to 4 digits.")
 
 def main():
-    cole = VirtualMachine()
-    cole.run()
+    VM = VirtualMachine()
+    VM.run()
 
 
 if __name__ == "__main__":

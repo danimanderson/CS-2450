@@ -64,11 +64,39 @@ class VirtualMachine:
             count += 1
         print(self)
 
-    def read(self):
-        pass
 
-    def write(self):
-        pass
+    def read(self, curr): #Fischer
+        """Triggered by instruction '10'. Reads a word from the keyboard in to a specific location in memory"""
+        mem_address = int(self._memory[curr][2:])                       #gets the last two characters from the word. This is the address we are printing the word from
+        if mem_address >= len(self._memory) and mem_address < 100:      #if the command calls an address that is outside of the used memory, but less than total memory, print NULL
+            print("NULL")
+        elif mem_address < len(self._memory):                           #if the command calls an address that inside used memory, print the data at that address
+            print(self._memory[mem_address])
+        else:                                                           #otherwise, the command is calling an address that is > 100, which is outside the total memory. Raise an error;.
+            raise IndexError("Segmentation fault. Memory address does not exist")
+    
+
+    def resize_memory(self, mem_address): #Fischer
+        """helper function to resize memory if needed"""
+        new_list = [None] * mem_address
+        for i in range(len(self._memory)):
+                new_list[i] = self._memory[i]
+        self._memory = new_list
+
+
+    def write(self, curr):    #Fischer
+        """Triggered by instruction '11'. Write a word from a specific location in memory to the screen"""
+        mem_address = int(self._memory[curr][2:])
+        plus = "+" 
+        user_word = input("Enter a 4-digit command (Digits 1-9 only): ")
+        new_word = plus + user_word
+        if mem_address < 100 and mem_address >= len(self._memory):          #if writing to an address that is outside of the current memory, but less than 100, resize memory and write word
+           self.resize_memory(mem_address)
+           self._memory[mem_address] = user_word
+        elif mem_address < len(self._memory):
+            self._memory[mem_address] = new_word
+        else:
+            raise IndexError("Segmentation fault. Cannot write to that memory address")
 
     def load(self, i):
         """Triggered by instruction '20'. Grabs number from a specific point in memory and puts it into accumulator"""
@@ -79,10 +107,14 @@ class VirtualMachine:
         self._memory[int(i)] = self._accumulator
 
     def add(self):
-        pass
+        self._accumulator = str(int(curr) + int(self._accumulator))
+        if len(self.get_accumulator()) > 4:
+            raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
 
     def subtract(self):
-        pass
+        self._accumulator = str(int(curr)) - int(self._accumulator)
+        if len(self.get_accumulator()) > 4:
+            raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
 
     def divide(self, curr):           # Cole
 

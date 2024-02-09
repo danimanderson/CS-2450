@@ -98,7 +98,7 @@ class VirtualMachine:
         pass
 
     def add(self):
-        pass
+        return ("hi")
 
     def subtract(self):
         pass

@@ -74,3 +74,12 @@ def test_store():
     vm._memory = ["1199", "0000", "1234", "0000", "0000", "0000"]
     with pytest.raises(IndexError):
         vm.run()
+
+def test_add():
+    pass
+
+def test_subtract():
+    pass
+
+def test_negBranch():
+    pass

@@ -34,3 +34,17 @@ USE CASES:
     2. Add a branch command to link to a certain memory location
     3. Add desired code. 
     4. Add a new halt command. 
+
+4. As a student, I want to be able to add two numbers
+    1. Open Instruction File
+    2. Add read instructions to get inputs from keyboard and store them in memory
+    3. Add load instruction to load desired value into accumulator
+    4. Add the addition instruction to perform operation
+    5. Run program
+
+5. As a virtual machine I want to decrement number numbers using subtraction in case the user needs to.
+    1. Open Instruction File
+    2. Add read instructions to get inputs from keyboard and store them in memory
+    3. Add load instruction to load desired value into accumulator
+    4. Add the subtraction instruction to perform operation
+    5. Run program 

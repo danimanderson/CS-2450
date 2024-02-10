@@ -155,7 +155,7 @@ class VirtualMachine:
 
     
     def subtract(self, curr):
-        self._accumulator = str(int(curr)) - int(self._accumulator)
+        self._accumulator = str(int(curr) - int(self._accumulator))
         if len(self.get_accumulator()) > 4:
             raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
 

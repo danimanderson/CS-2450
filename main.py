@@ -1,10 +1,12 @@
 class VirtualMachine:
-    def __init__(self):
+    def __init__(self, file = None):
         self._memory = []
         self._accumulator = "0000"
-        with open("Test1.txt", "r") as file:
-            for line in file:
-                self._memory.append(line.strip("+").strip("\n"))
+        self._file = file
+        if self._file != None:
+            with open(file, "r") as file:
+                for line in file:
+                    self._memory.append(line.strip("+").strip("\n"))
 
     def get_memory(self):
         return self._memory
@@ -27,7 +29,7 @@ class VirtualMachine:
 
         count = 0
         while True:
-            curr = self._memory[count][0:2]
+            curr = self._memory[count][0:2]                
 
             if curr == "43":
                 # Halt the program
@@ -42,6 +44,18 @@ class VirtualMachine:
 
             elif curr == "21":
                 self.store(self._memory[count][2:4])
+            
+            elif curr == "30":
+                #if first two numbers are 30 it excutes the adding function
+                if int(self._memory[count][2:4]) > len(self._memory) - 1:
+                    raise IndexError("Invalid Memory Address")
+                self.add(self._memory[int(self._memory[count][2:4])])
+            
+            elif curr == "31":
+                #if first two numbers are 31 executes the subtraction function
+                if int(self._memory[count][2:4]) > len(self._memory) - 1:
+                    raise IndexError("Invalid Memory Address")
+                self.subtract(self._memory[int(self._memory[count][2:4])])
 
             elif curr == "33":
                 # Checks if memory address is invalid. 
@@ -64,7 +78,11 @@ class VirtualMachine:
             elif curr == '11':
                 address = int(self._memory[count][2:])
                 self.write(count, address)
-
+            
+            elif curr == "41":
+                if "-" in self._accumulator:
+                    count = int(self._memory[count][2:4]) - 1
+                    
             elif curr == "42":
                 address = int(self._memory[count][2:])
                 count = self.branchzero(address)
@@ -119,16 +137,15 @@ class VirtualMachine:
 
     
     def load(self, i):
-        i = int(i)
-        if int(self._memory[i][2:4]) > len(self._memory) - 1:
-            raise IndexError("Segmentation fault. Memory address does not exist.")
-        self._accumulator = self._memory[int(self._memory[i][2:])]
+        if int(i) > len(self._memory):
+            raise IndexError("Invalid Memory Address")
+        self._accumulator = self._memory[int(i)]
 
     
     def store(self, i):
-        if (len(self._accumulator) % 100) > len(self._memory):
-            raise IndexError("Segmentation fault. Memory address does not exist.")
-        self._memory[int(self._memory[i][2:])] = self._accumulator
+        if int(i) > len(self._memory):
+            raise IndexError("Invalid Memory Address")
+        self._memory[int(i)] = self._accumulator
 
     
     def add(self, curr):
@@ -171,9 +188,9 @@ class VirtualMachine:
             return address
 
 def main():
-    cole = VirtualMachine()
-    cole.run()
-
+    file = str(input("Enter File Name (include .txt): "))
+    VM = VirtualMachine(file)
+    VM.run()
 
 if __name__ == "__main__":
     main()

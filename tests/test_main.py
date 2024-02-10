@@ -1,13 +1,25 @@
-from main import *
+import sys
+sys.path.append('../CS-2450')
+from 
+
 
 def test_multiply():
-    VM = VirtualMachine()
+    VM = main.VirtualMachine()
     #assert(VM.get_accumulator() == "2099")
     VM.run()
     assert(VM.get_accumulator() == "0020")
 
 def test_divide():
-    VM = VirtualMachine()
+    VM = main.VirtualMachine()
     assert(VM.get_accumulator() == "2008")
     VM.run()
     assert(VM.get_accumulator() == "0020")
+
+def test_read(monkeypatch): #Fischer
+    inputs = iter(['1234', '2345'])
+    monkeypatch.settatr('builtins.input', lambda _: next(inputs))
+    VM = main.VirtualMachine()
+    VM.run()
+    assert VM._memory[9] == '1234'
+    assert VM._memory[10] == '2345'
+

@@ -86,8 +86,8 @@ def test_add():
 
 def test_subtract():
     vm = VirtualMachine()
-    vm._accumulator = "0008"
-    vm._memory = ["0000", "0002", "3101", "4300"]
+    vm._accumulator = "0002"
+    vm._memory = ["0000", "0008", "3101", "4300"]
     vm.run()
     assert vm.get_accumulator() == "0006"
 """

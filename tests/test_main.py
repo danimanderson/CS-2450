@@ -1,6 +1,7 @@
-import sys
-sys.path.append('../CS-2450')
-from 
+import pytest, os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import main
+
 
 
 def test_multiply():
@@ -17,7 +18,7 @@ def test_divide():
 
 def test_read(monkeypatch): #Fischer
     inputs = iter(['1234', '2345'])
-    monkeypatch.settatr('builtins.input', lambda _: next(inputs))
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     VM = main.VirtualMachine()
     VM.run()
     assert VM._memory[9] == '1234'

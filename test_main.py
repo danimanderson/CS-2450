@@ -76,10 +76,26 @@ def test_store():
         vm.run()
 
 def test_add():
-    pass
+    # 3001 runs the aadd
+    vm = VirtualMachine()
+    vm._accumulator = "0002"
+    vm._memory = ["0000", "0006", "3001"]
+    vm.run()
+    assert vm.get_accumulator() == "0008"
+
 
 def test_subtract():
-    pass
+    vm = VirtualMachine()
+    vm._accumulator = "0008"
+    vm._memory = ["0000", "0002", "3101"]
+    vm.run()
+    assert vm.get_accumulator() == "0006"
 
 def test_negBranch():
-    pass
+    vm = VirtualMachine()
+    vm._memory = ["0000", "2100", "4101"]
+    vm._accumulator = "-0008"
+    vm.run()
+    assert vm._memory[0] == "-0008"
+
+    

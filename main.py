@@ -2,7 +2,7 @@ class VirtualMachine:
     def __init__(self):
         self._memory = []
         self._accumulator = "0000"
-        with open("Test2.txt", "r") as file:
+        with open("Test1.txt", "r") as file:
             for line in file:
                 self._memory.append(line.strip("+").strip("\n"))
 
@@ -98,7 +98,7 @@ class VirtualMachine:
         else:
             raise IndexError("Segmentation fault. Cannot write to that memory address")
 
-        def load(self, i):
+    def load(self, i):
         i = int(i)
         if int(self._memory[i][2:4]) > len(self._memory) - 1:
             raise IndexError("Segmentation fault. Memory address does not exist.")

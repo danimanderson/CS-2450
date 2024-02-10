@@ -69,6 +69,14 @@ class VirtualMachine:
                 address = int(self._memory[count][2:])
                 count = self.branchzero(address)
             
+            elif curr == '11':
+                address = int(self._memory[count][2:])
+                self.write(count, address)
+            
+            elif curr == "42":
+                address = int(self._memory[count][2:])
+                count = self.branchzero(address)
+
             elif len(self._memory) == count:
                 # Check if there are more instructions. 
                 raise IndexError("No More Executable Instructions")
@@ -88,47 +96,53 @@ class VirtualMachine:
             self._memory[address] = user_word
         else:
             raise ValueError("Address not in memory")
+    
 
-    def resize_memory(self): #Fischer
-        """helper function to resize memory if needed"""
-        new_list = [None] * 100
-        for i in range(len(self._memory)):
-                new_list[i] = self._memory[i]
-        self._memory = new_list
-
-
-    def write(self, count, address):    #Fischer
-        """Triggered by instruction '11'. Write a word from a specific location in memory to the screen"""
+    def write(self, count, address): #Fischer
+        """Triggered by instruction '11'. Write a word from a specific location in memory to screen""" 
         if len(self._memory) > count:
-            self.resize_memory()
+            self.resize_memory() 
         if self._memory[address] == None:
             print("None")
         elif self._memory[address] != None and count >= 0 and count < 100:
             print(self._memory[address])
         else:
             raise ValueError("Address not in memory")
+    
 
+    def resize_memory(self): #Fischer
+        """helper function to resize memory if needed"""
+        new_list = ["0000"] * 100
+        for i in range(len(self._memory)):
+                new_list[i] = self._memory[i]
+        self._memory = new_list
+
+    
     def load(self, i):
         i = int(i)
         if int(self._memory[i][2:4]) > len(self._memory) - 1:
             raise IndexError("Segmentation fault. Memory address does not exist.")
         self._accumulator = self._memory[int(self._memory[i][2:])]
 
+    
     def store(self, i):
         if (len(self._accumulator) % 100) > len(self._memory):
             raise IndexError("Segmentation fault. Memory address does not exist.")
         self._memory[int(self._memory[i][2:])] = self._accumulator
 
+    
     def add(self, curr):
         self._accumulator = str(int(curr) + int(self._accumulator))
         if len(self.get_accumulator()) > 4:
             raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
 
+    
     def subtract(self, curr):
         self._accumulator = str(int(curr)) - int(self._accumulator)
         if len(self.get_accumulator()) > 4:
             raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
 
+    
     def divide(self, curr):           # Cole
 
         # Divides the desired value by the amount in the Acc. and leaves the result in the Acc. 
@@ -138,6 +152,7 @@ class VirtualMachine:
         while len(self.get_accumulator()) < 4:
             self._accumulator = "0" + self._accumulator
 
+    
     def multiply(self, curr):         # Cole
         
         # Multiplies the desired value by the amount in the Acc. and leaves result in the Acc.
@@ -156,8 +171,9 @@ class VirtualMachine:
             return address
 
 def main():
-    VM = VirtualMachine()
-    VM.run()
+    cole = VirtualMachine()
+    cole.run()
+
 
 if __name__ == "__main__":
     main()

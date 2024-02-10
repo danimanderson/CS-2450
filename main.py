@@ -109,15 +109,14 @@ class VirtualMachine:
             raise ValueError("Address not in memory")
 
     def load(self, i):
-        i = int(i)
-        if int(self._memory[i][2:4]) > len(self._memory) - 1:
-            raise IndexError("Segmentation fault. Memory address does not exist.")
-        self._accumulator = self._memory[int(self._memory[i][2:])]
+        if int(i) > len(self._memory):
+            raise IndexError("Invalid Memory Address")
+        self._accumulator = self._memory[int(i)]
 
     def store(self, i):
-        if (len(self._accumulator) % 100) > len(self._memory):
-            raise IndexError("Segmentation fault. Memory address does not exist.")
-        self._memory[int(self._memory[i][2:])] = self._accumulator
+        if int(i) > len(self._memory):
+            raise IndexError("Invalid Memory Address")
+        self._memory[int(i)] = self._accumulator
 
     def add(self, curr):
         self._accumulator = str(int(curr) + int(self._accumulator))

@@ -121,12 +121,13 @@ class VirtualMachine:
         if len(self._memory) > count:
             self.resize_memory() 
         if self._memory[address] == None:
-            print("None")
+            output = "None"
         elif self._memory[address] != None and count >= 0 and count < 100:
-            print(self._memory[address])
+            output = self._memory[address]
         else:
             raise ValueError("Address not in memory")
-    
+        print(output)
+        return output
 
     def resize_memory(self): #Fischer
         """helper function to resize memory if needed"""

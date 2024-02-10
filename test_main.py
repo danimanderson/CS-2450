@@ -74,12 +74,12 @@ def test_store():
     vm._memory = ["2199", "0000", "1234", "0000", "0000", "0000"]
     with pytest.raises(IndexError):
         vm.run()
-"""
+
 def test_add():
     # 3001 runs the aadd
     vm = VirtualMachine()
     vm._accumulator = "0002"
-    vm._memory = ["0000", "0006", "3001"]
+    vm._memory = ["0000", "0006", "3001", "4300"]
     vm.run()
     assert vm.get_accumulator() == "0008"
 
@@ -87,10 +87,10 @@ def test_add():
 def test_subtract():
     vm = VirtualMachine()
     vm._accumulator = "0008"
-    vm._memory = ["0000", "0002", "3101"]
+    vm._memory = ["0000", "0002", "3101", "4300"]
     vm.run()
     assert vm.get_accumulator() == "0006"
-
+"""
 def test_negBranch():
     vm = VirtualMachine()
     vm._memory = ["0000", "2100", "4101"]

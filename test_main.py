@@ -98,4 +98,24 @@ def test_negBranch():
     vm.run()
     assert vm._memory[0] == "-0008"
 
-    
+def test_read(monkeypatch): #Fischer
+    inputs = iter(['1234', '2345'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    VM = VirtualMachine()
+    VM.run()
+    assert VM._memory[9] == '1234'
+    assert VM._memory[10] == '2345'
+
+def test_write(monkeypatch, capsys):
+    inputs = iter(['1234', '2345'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    VM = VirtualMachine()
+    VM.run()
+    captured = capsys.readouterr()
+    assert captured.out.strip() == '1234'
+
+def test_branchzero():
+    VM = VirtualMachine()
+    VM._memory = ["4301", "0000"]
+    VM.run()
+    assert VM.branchzero(int("01")) == 1

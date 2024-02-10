@@ -1,0 +1,5 @@
+1st User Story:
+As a Virtual Machine, I want to store information in a certain spot in memory, so that I can access it later.
+
+2nd User Story:
+As a educational client, I want to experiment with machine language so that I can teach machine language and computer architecture using this simulator.

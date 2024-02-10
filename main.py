@@ -1,10 +1,12 @@
 class VirtualMachine:
-    def __init__(self):
+    def __init__(self, file = None):
         self._memory = []
         self._accumulator = "0000"
-        with open("Test1.txt", "r") as file:
-            for line in file:
-                self._memory.append(line.strip("+").strip("\n"))
+        self._file = file
+        if self._file != None:
+            with open(file, "r") as file:
+                for line in file:
+                    self._memory.append(line.strip("+").strip("\n"))
 
     def get_memory(self):
         return self._memory
@@ -155,7 +157,8 @@ class VirtualMachine:
             return address
 
 def main():
-    VM = VirtualMachine()
+    file = str(input("Enter File Name (include .txt): "))
+    VM = VirtualMachine(file)
     VM.run()
 
 if __name__ == "__main__":

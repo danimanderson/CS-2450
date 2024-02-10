@@ -152,12 +152,16 @@ class VirtualMachine:
         self._accumulator = str(int(curr) + int(self._accumulator))
         if len(self.get_accumulator()) > 4:
             raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
+        while len(self.get_accumulator()) < 4:
+            self._accumulator = "0" + self._accumulator
 
     
     def subtract(self, curr):
         self._accumulator = str(int(curr) - int(self._accumulator))
         if len(self.get_accumulator()) > 4:
             raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
+        while len(self.get_accumulator()) < 4:
+            self._accumulator = "0" + self._accumulator
 
     
     def divide(self, curr):           # Cole

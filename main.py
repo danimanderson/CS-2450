@@ -95,7 +95,7 @@ class VirtualMachine:
                 address = int(self._memory[count][2:])
                 count = self.branchzero(address)
 
-            elif len(self._memory) == count:
+            elif len(self._memory) <= count:
                 # Check if there are more instructions. 
                 raise IndexError("No More Executable Instructions")
             

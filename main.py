@@ -119,12 +119,12 @@ class VirtualMachine:
             raise IndexError("Segmentation fault. Memory address does not exist.")
         self._memory[int(self._memory[i][2:])] = self._accumulator
 
-    def add(self):
+    def add(self, curr):
         self._accumulator = str(int(curr) + int(self._accumulator))
         if len(self.get_accumulator()) > 4:
             raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
 
-    def subtract(self):
+    def subtract(self, curr):
         self._accumulator = str(int(curr)) - int(self._accumulator)
         if len(self.get_accumulator()) > 4:
             raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")

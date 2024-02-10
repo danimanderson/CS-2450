@@ -98,13 +98,16 @@ class VirtualMachine:
         else:
             raise IndexError("Segmentation fault. Cannot write to that memory address")
 
-    def load(self, i):
-        """Triggered by instruction '20'. Grabs number from a specific point in memory and puts it into accumulator"""
-        self._accumulator = self._memory[int(i)]
+        def load(self, i):
+        i = int(i)
+        if int(self._memory[i][2:4]) > len(self._memory) - 1:
+            raise IndexError("Segmentation fault. Memory address does not exist.")
+        self._accumulator = self._memory[int(self._memory[i][2:])]
 
     def store(self, i):
-        """Triggered by instruction '21'. Grabs number from the accumulator and puts it into a specific point in memory."""
-        self._memory[int(i)] = self._accumulator
+        if (len(self._accumulator) % 100) > len(self._memory):
+            raise IndexError("Segmentation fault. Memory address does not exist.")
+        self._memory[int(self._memory[i][2:])] = self._accumulator
 
     def add(self):
         self._accumulator = str(int(curr) + int(self._accumulator))

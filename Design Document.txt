@@ -26,3 +26,11 @@ USE CASES:
     3. Add load instruction to load desired value into accumulator
     4. Add divide instruction to perform operation
     5. Run program
+
+3. 
+    As a deveoper, I want to skip lines of code in my file and execute different commands.
+
+    1. Open instruction file
+    2. Add a branch command to link to a certain memory location
+    3. Add desired code. 
+    4. Add a new halt command. 

@@ -57,6 +57,18 @@ class VirtualMachine:
                 # Divides nth element by Acc. Value. 
                 self.divide(self._memory[int(self._memory[count][2:4])])
 
+            elif curr == "10":
+                address = int(self._memory[count][2:])
+                self.read(count, address)
+
+            elif curr == '11':
+                address = int(self._memory[count][2:])
+                self.write(count, address)
+
+            elif curr == "42":
+                address = int(self._memory[count][2:])
+                count = self.branchzero(address)
+            
             elif len(self._memory) == count:
                 # Check if there are more instructions. 
                 raise IndexError("No More Executable Instructions")
@@ -65,38 +77,36 @@ class VirtualMachine:
         print(self)
 
 
-    def read(self, curr): #Fischer
+    def read(self, count, address): #Fischer
         """Triggered by instruction '10'. Reads a word from the keyboard in to a specific location in memory"""
-        mem_address = int(self._memory[curr][2:])                       #gets the last two characters from the word. This is the address we are printing the word from
-        if mem_address >= len(self._memory) and mem_address < 100:      #if the command calls an address that is outside of the used memory, but less than total memory, print NULL
-            print("NULL")
-        elif mem_address < len(self._memory):                           #if the command calls an address that inside used memory, print the data at that address
-            print(self._memory[mem_address])
-        else:                                                           #otherwise, the command is calling an address that is > 100, which is outside the total memory. Raise an error;.
-            raise IndexError("Segmentation fault. Memory address does not exist")
-    
+        if len(self._memory) > count:
+            self.resize_memory()
+        user_word = input("Enter a 4-digit command (Digits 0-9 only): ")
+        if len(user_word) > 4:
+            raise ValueError("Command too long")
+        if address < 100 and address >= 0:
+            self._memory[address] = user_word
+        else:
+            raise ValueError("Address not in memory")
 
-    def resize_memory(self, mem_address): #Fischer
+    def resize_memory(self): #Fischer
         """helper function to resize memory if needed"""
-        new_list = [None] * mem_address
+        new_list = [None] * 100
         for i in range(len(self._memory)):
                 new_list[i] = self._memory[i]
         self._memory = new_list
 
 
-    def write(self, curr):    #Fischer
+    def write(self, count, address):    #Fischer
         """Triggered by instruction '11'. Write a word from a specific location in memory to the screen"""
-        mem_address = int(self._memory[curr][2:])
-        plus = "+" 
-        user_word = input("Enter a 4-digit command (Digits 1-9 only): ")
-        new_word = plus + user_word
-        if mem_address < 100 and mem_address >= len(self._memory):          #if writing to an address that is outside of the current memory, but less than 100, resize memory and write word
-           self.resize_memory(mem_address)
-           self._memory[mem_address] = user_word
-        elif mem_address < len(self._memory):
-            self._memory[mem_address] = new_word
+        if len(self._memory) > count:
+            self.resize_memory()
+        if self._memory[address] == None:
+            print("None")
+        elif self._memory[address] != None and count >= 0 and count < 100:
+            print(self._memory[address])
         else:
-            raise IndexError("Segmentation fault. Cannot write to that memory address")
+            raise ValueError("Address not in memory")
 
     def load(self, i):
         i = int(i)
@@ -140,6 +150,10 @@ class VirtualMachine:
         # Exception if result is larger than 4 digits.
         if len(self.get_accumulator()) > 4:
             raise ValueError(f"Value Overflow; Accumlulator only supports up to 4 digits.")
+
+    def branchzero(self, address):
+        if self._accumulator == '0000':
+            return address
 
 def main():
     VM = VirtualMachine()

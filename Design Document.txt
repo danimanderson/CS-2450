@@ -60,3 +60,24 @@ USE CASES:
     1. Open Instruction file
     2. Add load instruction with a value of 01
     4. Run Program
+
+8. As Virtual Machine, I want to read a a value from the user into the memory.
+
+    1. Open Instruction File
+    2. Prompt user for a command
+    3. Make sure the command is 4 digits or less
+    4. Make sure the address to write to is in memory
+    5. Write user command to address
+
+9. As a virtual machine, I want to write a value to the screen
+
+    1. Open Instruction File
+    2. Get address to write to
+    3. Resize memory if needed
+    4. Write to memory address
+
+10. As a virtual machine, I want to jump through memory locations if the accumulator is set to 0
+
+    1. Check to see if the accumulator is set to "0000"
+    2. Get address to jump to
+    3. Jump to address

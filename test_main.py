@@ -90,14 +90,14 @@ def test_subtract():
     vm._memory = ["0000", "0008", "3101", "4300"]
     vm.run()
     assert vm.get_accumulator() == "0006"
-"""
+
 def test_negBranch():
     vm = VirtualMachine()
-    vm._memory = ["0000", "2100", "4101"]
+    vm._memory = ["0000", "2100", "4101", "4300"]
     vm._accumulator = "-0008"
     vm.run()
     assert vm._memory[0] == "-0008"
-
+"""
 def test_read(monkeypatch): #Fischer
     inputs = iter(['1234', '2345'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))

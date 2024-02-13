@@ -25,8 +25,8 @@ def test_multiply3():
     #Sets Acc. to 9999 and gets multiplied by the 0th item in memort to throw a ValueError (Value Overflow as Acc. == 10,088,991)
     VM._memory = ["9999", "0000", "3300", "0000", "4300"]
     VM._accumulator = "9999"
-    with pytest.raises(ValueError):
-        VM.run()
+    VM.run()
+    assert(VM._accumulator == "0001")
 
 def test_multiply4():
     VM = VirtualMachine()

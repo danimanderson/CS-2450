@@ -6,7 +6,7 @@ class VirtualMachine:
         if self._file != None:
             with open(file, "r") as file:
                 for line in file:
-                    self._memory.append(line.strip("+").strip("\n"))
+                    self._memory.append(line.strip("+").strip("\n").strip(" "))
 
     def get_memory(self):
         return self._memory
@@ -29,7 +29,7 @@ class VirtualMachine:
 
         count = 0
         while True:
-            curr = self._memory[count][0:2]                
+            curr = self._memory[count][0:2]           
 
             if curr == "43":
                 # Halt the program
@@ -95,7 +95,7 @@ class VirtualMachine:
                 address = int(self._memory[count][2:])
                 count = self.branchzero(address)
 
-            elif len(self._memory) <= count:
+            elif len(self._memory) - 1 <= count:
                 # Check if there are more instructions. 
                 raise IndexError("No More Executable Instructions")
             
@@ -138,21 +138,21 @@ class VirtualMachine:
 
     
     def load(self, i):
-        if int(i) > len(self._memory):
-            raise IndexError("Invalid Memory Address")
+        if len(self._memory) > int(i):
+            self.resize_memory() 
         self._accumulator = self._memory[int(i)]
 
     
     def store(self, i):
-        if int(i) > len(self._memory):
-            raise IndexError("Invalid Memory Address")
+        if len(self._memory) > int(i):
+            self.resize_memory() 
         self._memory[int(i)] = self._accumulator
 
     
     def add(self, curr):
         self._accumulator = str(int(curr) + int(self._accumulator))
         if len(self.get_accumulator()) > 4:
-            raise ValueError("Value Overflow; Accumulator only supports up to 4 digits!")
+            self._accumulator = self._accumulator[len(self._accumulator) - 4 : len(self._accumulator)]
         while len(self.get_accumulator()) < 4:
             self._accumulator = "0" + self._accumulator
 
@@ -186,7 +186,7 @@ class VirtualMachine:
 
         # Exception if result is larger than 4 digits.
         if len(self.get_accumulator()) > 4:
-            raise ValueError(f"Value Overflow; Accumlulator only supports up to 4 digits.")
+            self._accumulator = self._accumulator[len(self._accumulator) - 4 : len(self._accumulator)]
 
     def branchzero(self, address):
         if self._accumulator == '0000':

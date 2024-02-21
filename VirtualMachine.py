@@ -1,3 +1,4 @@
+from main import *
 class VirtualMachine:
     def __init__(self, file = None):
         self._memory = []
@@ -7,7 +8,11 @@ class VirtualMachine:
             with open(self._file, "r")  as file:
                 for line in file:
                     self._memory.append(line.strip("\n").strip(" "))
-    
+        self._output = "Output:\n"
+
+    def get_output(self):
+        return self._output
+
     def operator(self, val):
         return val[1:3]
     
@@ -150,6 +155,7 @@ class VirtualMachine:
         else:
             raise ValueError("Address not in memory")
         print(output)
+        self._output += output + "\n"
         return output
 
     def resize_memory(self): #Fischer

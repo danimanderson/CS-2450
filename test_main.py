@@ -1,4 +1,4 @@
-from main import *
+from VirtualMachine import *
 import pytest
 
 def test_multiply():

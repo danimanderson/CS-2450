@@ -10,6 +10,8 @@ class VirtualMachine:
                     self._memory.append(line.strip("\n").strip(" "))
         self._output = "Output:\n"
 
+    #check for inputs function
+
     def get_output(self):
         return self._output
 
@@ -135,6 +137,7 @@ class VirtualMachine:
         """Triggered by instruction '10'. Reads a word from the keyboard in to a specific location in memory"""
         if len(self._memory) > count:
             self.resize_memory()
+        # set user word to the first element of the input list. Remove that element.
         user_word = input("Enter a 4-digit command (Digits 0-9 only): ")
         if len(user_word) > 4:
             raise ValueError("Command too long")

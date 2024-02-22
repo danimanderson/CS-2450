@@ -1,3 +1,4 @@
+from main import *
 class VirtualMachine:
     def __init__(self, file = None):
         self._memory = []
@@ -7,7 +8,13 @@ class VirtualMachine:
             with open(self._file, "r")  as file:
                 for line in file:
                     self._memory.append(line.strip("\n").strip(" "))
-    
+        self._output = "Output:\n"
+
+    #check for inputs function
+
+    def get_output(self):
+        return self._output
+
     def operator(self, val):
         return val[1:3]
     
@@ -130,6 +137,7 @@ class VirtualMachine:
         """Triggered by instruction '10'. Reads a word from the keyboard in to a specific location in memory"""
         if len(self._memory) > count:
             self.resize_memory()
+        # set user word to the first element of the input list. Remove that element.
         user_word = input("Enter a 4-digit command (Digits 0-9 only): ")
         if len(user_word) > 4:
             raise ValueError("Command too long")
@@ -150,6 +158,7 @@ class VirtualMachine:
         else:
             raise ValueError("Address not in memory")
         print(output)
+        self._output += output + "\n"
         return output
 
     def resize_memory(self): #Fischer

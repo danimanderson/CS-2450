@@ -26,6 +26,8 @@ def main():
     def run():  # Use nonlocal to modify the outer scope variable
         file_text = entry1.get()
         VM = VirtualMachine(file_text)
+        # Check if there are inputs
+        # if there are, prompt for them. "+1234,+5432" -> ["+1234","+5432"]
         VM.run()
         
         label2.configure(text = VM.get_output())

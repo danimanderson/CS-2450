@@ -23,12 +23,23 @@ def main():
     entry1 = customtkinter.CTkEntry(master=frame, placeholder_text="Enter File Name")
     entry1.pack(pady=12, padx=10)
 
+    entry2 = customtkinter.CTkEntry(master=frame, placeholder_text="Inputs Ex. 1234, 3245")
+    entry2.pack(pady=12, padx=10)
+
     def run():  # Use nonlocal to modify the outer scope variable
+        # Creates Obj
         file_text = entry1.get()
-        VM = VirtualMachine(file_text)
-        # Check if there are inputs
-        # if there are, prompt for them. "+1234,+5432" -> ["+1234","+5432"]
-        VM.run()
+
+        try:
+            VM = VirtualMachine(file_text)
+            VM.set_inputs(entry2.get())
+            VM.run()
+        except FileNotFoundError:
+            assert False, label2.configure(text = "File is not found!")
+        except ValueError:
+            assert False, label2.configure(text = "Invalid input!")
+        except IndexError:
+            assert False, label2.configure(text = "Invalid memory address or no \n more executable instructions!")
         
         label2.configure(text = VM.get_output())
         label3.configure(text = VM)

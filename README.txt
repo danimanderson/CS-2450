@@ -28,4 +28,4 @@ BRANCHZERO = 42 Branch to a specific location in memory if the accumulator is ze
 HALT = 43 Stop the program
 
 As the program reads the file it will follow the instructions from the file. 
-At the end it will print the resulting memory and the accumulator or give a reason as to why it wasn't able to complete the instructions in the file.
+At the end it will print the outputs, the resulting memory and the accumulator or give a reason as to why it wasn't able to complete the instructions in the file.

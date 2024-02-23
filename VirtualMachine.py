@@ -1,4 +1,3 @@
-from main import *
 class VirtualMachine:
     def __init__(self, file = None):
         self._memory = []
@@ -9,8 +8,11 @@ class VirtualMachine:
                 for line in file:
                     self._memory.append(line.strip("\n").strip(" "))
         self._output = "Output:\n"
-
-    #check for inputs function
+        self._input = []
+    
+    def set_inputs(self, new):
+        if new != "":
+            [self._input.append(i) for i in new.split(',')]
 
     def get_output(self):
         return self._output
@@ -29,7 +31,7 @@ class VirtualMachine:
                 return "+" + val
             elif len(val) < 4:
                 while len(val) != 4:
-                    val = "0" + val
+                    val = "0" + val.strip('+')
                 return "+" + val
             elif len(val) > 4:
                 return "+" + val[len(val) - 4 : len(val)]
@@ -138,11 +140,15 @@ class VirtualMachine:
         if len(self._memory) > count:
             self.resize_memory()
         # set user word to the first element of the input list. Remove that element.
-        user_word = input("Enter a 4-digit command (Digits 0-9 only): ")
-        if len(user_word) > 4:
+        try:
+            user_word = self._input[0]
+            self._input.remove(self._input[0])
+        except:
+            raise ValueError("Invalid Inputs")
+        if len(user_word) > 5:
             raise ValueError("Command too long")
         if address < 100 and address >= 0:
-            self._memory[address] = f"+{user_word}"
+            self._memory[address] = f"{self.sign(user_word)}"
         else:
             raise ValueError("Address not in memory")
     
@@ -154,7 +160,7 @@ class VirtualMachine:
         if self._memory[address] == None:
             output = "None"
         elif self._memory[address] != None and count >= 0 and count < 100:
-            output = self._memory[address]
+            output = self.sign(self._memory[address])
         else:
             raise ValueError("Address not in memory")
         print(output)

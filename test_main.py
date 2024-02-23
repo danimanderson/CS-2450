@@ -148,18 +148,16 @@ def test_negBranch():
     vm.run()
     assert vm._accumulator == "+0000"
 
-def test_read(monkeypatch): #Fischer
-    inputs = iter(['1234', '2345'])
-    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+def test_read(): #Fischer
     VM = VirtualMachine()
+    VM._input = ['1234', '2345']
     VM._memory = ['+1007', '+1008', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM.run()
     assert VM._memory[7] == '+1234'
 
-def test_write(monkeypatch):
-    inputs = iter(['1234', '2345'])
-    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+def test_write():
     VM = VirtualMachine()
+    VM._input = ['1234', '2345']
     VM._memory = ['+1007', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM.run()
     assert VM.write(0, 7) == "+1234"
@@ -177,18 +175,16 @@ def test_negBranch2():
     vm.run()
     assert vm._accumulator == "+0001"
 
-def test_read2(monkeypatch): #Fischer
-    inputs = iter(['1234', '2345'])
-    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+def test_read2(): #Fischer
     VM = VirtualMachine()
+    VM._input = ['1234', '2345']
     VM._memory = ['+1008', '+1008', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM.run()
     assert VM._memory[8] == '+2345'
 
-def test_write2(monkeypatch):
-    inputs = iter(['1234', '2345'])
-    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+def test_write2():
     VM = VirtualMachine()
+    VM._input = ['1234', '2345']
     VM._memory = ['+1008', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM.run()
     assert VM.write(0, 8) == "+1234"

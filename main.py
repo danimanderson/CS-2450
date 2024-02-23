@@ -23,11 +23,17 @@ def main():
     entry1 = customtkinter.CTkEntry(master=frame, placeholder_text="Enter File Name")
     entry1.pack(pady=12, padx=10)
 
+    entry2 = customtkinter.CTkEntry(master=frame, placeholder_text="Inputs Ex. 1234, 3245")
+    entry2.pack(pady=12, padx=10)
+
     def run():  # Use nonlocal to modify the outer scope variable
+        # Creates Obj
         file_text = entry1.get()
         VM = VirtualMachine(file_text)
-        # Check if there are inputs
-        # if there are, prompt for them. "+1234,+5432" -> ["+1234","+5432"]
+
+        # Sets Inputs
+        VM.set_inputs(entry2.get())
+
         VM.run()
         
         label2.configure(text = VM.get_output())

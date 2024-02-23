@@ -29,12 +29,17 @@ def main():
     def run():  # Use nonlocal to modify the outer scope variable
         # Creates Obj
         file_text = entry1.get()
-        VM = VirtualMachine(file_text)
 
-        # Sets Inputs
-        VM.set_inputs(entry2.get())
-
-        VM.run()
+        try:
+            VM = VirtualMachine(file_text)
+            VM.set_inputs(entry2.get())
+            VM.run()
+        except FileNotFoundError:
+            assert False, label2.configure(text = "File is not found!")
+        except ValueError:
+            assert False, label2.configure(text = "Invalid input!")
+        except IndexError:
+            assert False, label2.configure(text = "Invalid memory address or no \n more executable instructions!")
         
         label2.configure(text = VM.get_output())
         label3.configure(text = VM)

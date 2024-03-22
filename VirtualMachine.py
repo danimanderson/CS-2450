@@ -13,6 +13,17 @@ class VirtualMachine:
     
     def get_output(self):
         return self._output
+    
+    def validate_inputs(self):
+        required_inputs = 0
+        for i in self._memory._values:
+            if i.operator() == "10":
+                required_inputs += 1
+        if required_inputs != len(self._input):
+            return False, required_inputs
+        return True, required_inputs
+    
+
 
     def sign(self, val):
         if int(val) == 0:

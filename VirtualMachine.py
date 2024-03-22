@@ -86,8 +86,9 @@ class VirtualMachine:
                     raise IndexError("Invalid memory address")
                 self.add(self._memory._values[int(curr_operand)].get_val())
 
+            #checks if operator is 31, if true executes addition.
             elif curr_operator == "31":
-                if int(curr_operand) > self._memory.size() - 1:
+                if int(curr_operand) > self._memory.size() - 1: #change this into function
                     raise IndexError("Invalid memory address")
                 self.subtract(self._memory._values[int(curr_operand)].get_val())
 

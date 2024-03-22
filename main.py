@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import tkinter
 import customtkinter 
 import SettingGui
@@ -83,6 +84,13 @@ def main():
     # entry2.pack(pady=12, padx=10)
     root.mainloop()
 
+=======
+from editFile import *
+
+def main():
+    file_editor = EditFile()
+    file_editor.create_gui()
+>>>>>>> 14a1c8ba2bec11b896550b3b981bc3c7afe619aa
 
 if __name__ == "__main__":
     main()

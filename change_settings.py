@@ -37,7 +37,6 @@ def change_secondary(secondary_hex):
 
     settings["CTkFrame"]["top_fg_color"] = secondary
     settings["CTkEntry"]["fg_color"] = secondary
-    settings["CTkLabel"]["text_color"] = secondary
     settings["CTkButton"]["fg_color"] = secondary
     settings["CTkCheckBox"]["fg_color"] = secondary
     settings["CTkCheckBox"]["hover_color"] = secondary
@@ -86,7 +85,6 @@ def reset_colors():
     
     settings["CTkFrame"]["top_fg_color"] = secondary
     settings["CTkEntry"]["fg_color"] = secondary
-    settings["CTkLabel"]["text_color"] = secondary
     settings["CTkButton"]["fg_color"] = secondary
     settings["CTkCheckBox"]["fg_color"] = secondary
     settings["CTkCheckBox"]["hover_color"] = secondary

@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 import customtkinter
 from VirtualMachine import *
+import main
 
 class EditFile():
     def __init__(self):
@@ -59,11 +61,7 @@ class EditFile():
             # Creates Obj
             label2.configure(text = "")
             file_text = self.file_to_open
-
-
-            #with open(file_text, "r") as file:
-                #file_data = file.readlines()
-            #if len(file_data) < 100:  
+                
             VM = VirtualMachine(file_text)
             VM.set_inputs(entry2.get())
             
@@ -83,7 +81,7 @@ class EditFile():
                 
                 label2.configure(text = VM.get_output())
                 label3.configure(text = VM)
-            #root.destroy()
+                #root.destroy()
 
         # button 1 is a "run" button that will execute the "run" function.
         button = customtkinter.CTkButton(master=frame, text="Run", command=run)

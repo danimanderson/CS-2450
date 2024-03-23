@@ -1,9 +1,9 @@
-<<<<<<< HEAD
 import tkinter
 import customtkinter 
 import SettingGui
 from VirtualMachine import *
 from tkinter import colorchooser
+from editFile import *
  
 # Function that will be invoked when the
 # button will be clicked in the main window
@@ -82,15 +82,10 @@ def main():
     
     # entry2 = customtkinter.CTkEntry(master=frame, placeholder_text="Output")
     # entry2.pack(pady=12, padx=10)
-    root.mainloop()
-
-=======
-from editFile import *
-
-def main():
     file_editor = EditFile()
     file_editor.create_gui()
->>>>>>> 14a1c8ba2bec11b896550b3b981bc3c7afe619aa
+    root.mainloop()
+    
 
 if __name__ == "__main__":
     main()

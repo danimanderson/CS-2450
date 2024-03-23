@@ -1,7 +1,7 @@
 This program is a python program and assumes you use it from VS Code.
 In order to launch the GUI from the command line enter: pip install tkinter.
 Then from the command line enter: pip install customtkinter.
-In order to launch the application from the command line enter: 'py -m main' or 'python3 main.py' (without quotation marks(.
+In order to launch the application from the command line enter: 'py -m main' or 'python3 main.py' (without quotation marks).
 
 Once you run main.py in the terminal you will two  windows that open up. One that has a singular buttonn named "Settings" and another window that has buttons for opening files. 
 If you wish to change the color feel free to do so in settings button. You'll have the option to set a primary color and secondary color.

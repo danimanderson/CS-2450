@@ -14,7 +14,7 @@ class SettingGUI(tk.Tk):
 
         self.frame = customtkinter.CTkFrame(master=self)
         self.frame.pack(pady=20, padx=60, fill="both", expand=True)
-        self.label = customtkinter.CTkLabel(master=self.frame, text="Settings")
+        self.label = customtkinter.CTkLabel(master=self.frame, text="Settings", text_color="white")
         self.label.pack(pady=12, padx=10)
 
         self.entry1 = customtkinter.CTkEntry(master=self.frame, placeholder_text="Enter Primary Color", width = 150, justify = "center")

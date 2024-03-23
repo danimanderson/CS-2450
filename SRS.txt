@@ -1,0 +1,25 @@
+Functional Requirements
+1.	The system shall open a file from specified input.
+2.	The system shall display an error if the input file fails to open or doesn’t exist.
+3.	The system shall have labelling of controls.
+4.	The system shall read .txt files.
+5.	The system shall iterate through the files commands/inputs and process each value based on the operator, the first two digits, and the operand, the second two digits (n).
+6.	The system shall have a GUI with a run button.
+7.	The system shall have a GUI with a quit button.
+8.	The system shall add the accumulator value with the nth value of the list then store it in the accumulator if the system finds an add operator.
+9.	The system shall subtract the accumulator with the nth value of the list then store the result in the accumulator if the system finds a subtract operator.
+10.	The system shall truncate the accumulator down to 4 digits if the result of the addition or subtraction is more than 4 digits.
+11.	The system shall multiply the accumulator with the nth value of the list then store the result in the accumulator if the system finds a multiply operator.
+12.	The system shall divide the accumulator with the nth value of the list if the system finds a divide operator.
+13.	The system shall truncate the accumulator down to 4 digits if the result of the multiplication or division is more than 4 digits.
+14.	The system shall jump to the nth element in the list if the system finds a jump operator.
+15.	The system shall print all elements of the list, then the value of the accumulator once the program finds a halt command or reaches the end of the list.
+
+
+Non-Functional Requirements
+16.	The system can support up to 100 elements in the list (memory.)
+17.	The system shall have README.txt to explain how to use the system.
+18.	The system shall have documented the classes within the system.
+19. 	The system shall be automatically set to UVU color scheme.
+20. 	The system shall allow a user to input a new color scheme.
+21. 	The system will display the last color scheme it was set to.

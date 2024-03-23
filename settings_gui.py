@@ -1,3 +1,4 @@
+#this file isn't used in the end
 import customtkinter
 class SettingGui():
     def __init__(self):

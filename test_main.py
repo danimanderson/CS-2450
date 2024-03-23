@@ -1,5 +1,7 @@
 from VirtualMachine import *
 import pytest
+import json
+import change_settings as cng
 
 def test_multiply():
     VM = VirtualMachine()
@@ -216,3 +218,27 @@ def test_branchzero2():
     VM._accumulator = Value("+0000")
     VM.run()
     assert VM._accumulator.get_val() == "+4202"
+
+def test_change_primary():
+    cng.change_primary("#ABCDEF")
+    with open('settings.json', 'r') as fin:
+        settings = json.load(fin)
+
+    assert settings["CTk"]["fg_color"] == ["#ABCDEF", "#ABCDEF"]
+
+def test_change_secondary():
+    cng.change_secondary("#EEEEEE")
+    with open('settings.json', 'r') as fin:
+        settings = json.load(fin)
+
+    assert settings["CTkFrame"]["top_fg_color"] == ["#EEEEEE", "#EEEEEE"]
+
+def test_reset():
+    cng.reset_colors()
+    with open('settings.json', 'r') as fin:
+        settings = json.load(fin)
+
+    assert settings["CTk"]["fg_color"] == ["#275D38", "#275D38"] and settings["CTkFrame"]["top_fg_color"] == ["#FFFFFF", "#FFFFFF"]
+
+
+

@@ -1,9 +1,9 @@
 This program is a python program and assumes you use it from VS Code.
 In order to launch the GUI from the command line enter: pip install tkinter.
 Then from the command line enter: pip install customtkinter.
-In order to launch the application from the command line enter: py -m main.
+In order to launch the application from the command line enter: 'py -m main' or 'python3 main.py' (without quotation marks(.
 
-This program requires a .txt file. You will be prompted on a graphical user interface for a file when you run the main.py. You can use aboslute pathing for file look up or use a file in the same directory. You will also be prompted for any inputs listed and separated by a comma.
+This program requires a .txt file. You will be prompted on a graphical user interface for a file when you run the main.py. You can use absolute pathing for file look up or use a file in the same directory. You will also be prompted for any inputs listed and separated by a comma.
 
 In the file you will need to have 4 digits instructions. The first two digits will be the operation code specifying the operation to be performed. The last two digits of the four-digit instructions are the operands. 
 

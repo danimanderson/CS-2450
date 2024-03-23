@@ -31,3 +31,8 @@ HALT = 43 Stop the program
 
 As the program reads the file it will follow the instructions from the file. 
 At the end it will print the outputs, the resulting memory and the accumulator or give a reason as to why it wasn't able to complete the instructions in the file.
+
+Once you run main.py in the terminal you will two  windows that open up. One that has a singular buttonn named "Settings" and another window that has buttons for opening files. If you wish to change the color feel free to do so in settings button. You'll have the option to set a primary color and secondary color.
+This will only accept hex values, for example #FFFFFF is white in hex. Once you set the colors, do not close out of the settings window.
+
+Now you will navigate to the other window. Here you can open a file anywhere in your computers directory. Once the file is opened up, you can view the file and edit to your liking. Please keep in mind that you can only have 100 lines of commands in the text file. Once you're happy with your changes, hit assemble and it will open a new window. You can then just click run and it will execute the program.

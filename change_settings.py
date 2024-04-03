@@ -27,7 +27,7 @@ def change_primary(primary_hex):
     with open('settings.json', 'w') as fout:
         json.dump(settings, fout, indent=4)
  
-    tk.messagebox.showinfo("showinfo", "Primary color changed. \nRestart app to see changes")
+    #tk.messagebox.showinfo("showinfo", "Primary color changed. \nRestart app to see changes")
  
 def change_secondary(secondary_hex):
     secondary = [secondary_hex, secondary_hex]
@@ -59,7 +59,7 @@ def change_secondary(secondary_hex):
             json.dump(settings, fout, indent=4)
     customtkinter.set_default_color_theme("settings.json")   
 
-    tk.messagebox.showinfo("showinfo", "Secondary color changed. \nRestart app to see changes")
+    #tk.messagebox.showinfo("showinfo", "Secondary color changed. \nRestart app to see changes")
 
 def reset_colors():
     primary = ["#275D38", "#275D38"]
@@ -106,4 +106,4 @@ def reset_colors():
     with open('settings.json', 'w') as fout:
         json.dump(settings, fout, indent=4)
 
-    tk.messagebox.showinfo("showinfo", "Colorscheme reset. \nRestart app to see changes")
+    #tk.messagebox.showinfo("showinfo", "Colorscheme reset. \nRestart app to see changes")

@@ -2,6 +2,8 @@ import customtkinter
 from tkinter import *
 from tkinter import filedialog
 from tkinter.colorchooser import askcolor
+import change_settings as change
+import json
 from VirtualMachine import *
 
 
@@ -11,9 +13,14 @@ class mainGui(customtkinter.CTk):
         # This will automatically set the theme of your background according to your computer. e.g. light or dark mode
         customtkinter.set_appearance_mode("default")
         # Sets default color theme
-        customtkinter.set_default_color_theme("green")
+        customtkinter.set_default_color_theme("settings.json")
+        with open('settings.json', 'r') as fin:
+                settings = json.load(fin)
+
+        self.configure(fg_color=settings["CTk"]["fg_color"][0])
+
         self.title("UVsim")
-        self.geometry("850x600")
+        self.geometry("1050x700")
         self.grid_columnconfigure(0, weight=0)
         self.grid_rowconfigure(5, weight=1)
 
@@ -42,18 +49,45 @@ class mainGui(customtkinter.CTk):
     def change_color(self):
         # Pulls up a color wheel and then sets a primary color
         primary_color = askcolor()
+        change.change_primary(primary_color[1])
         self.configure(fg_color=primary_color[1])
         self.text_frame.configure(fg_color=primary_color[1])
+        
         # Pulls up a color wheel and then sets a secondary color and updates the color of the buttons. It also changes the color of the text to be the same as the primary color
         secondary_color2 = askcolor()
+        change.change_secondary(secondary_color2[1])
         self.run_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
         self.save_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
         self.quit_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
         self.change_color_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
         self.open_file_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
+        self.textbox.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
+        self.user_input.configure(fg_color=secondary_color2[1], border_color=primary_color[1], text_color=primary_color[1])
+        self.reset_color_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
 
         # Refreshes the gui so the colors are applied
         print("Colors have been changed!")
+        self.update_idletasks()
+
+    
+    def reset_colors(self):
+        primary = "#275D38"
+        secondary = "#FFFFFF"
+        change.reset_colors()
+
+        self.configure(fg_color=primary)
+        self.text_frame.configure(fg_color=primary)
+        
+        self.run_button.configure(fg_color=secondary, text_color=primary)
+        self.save_button.configure(fg_color=secondary, text_color=primary)
+        self.quit_button.configure(fg_color=secondary, text_color=primary)
+        self.change_color_button.configure(fg_color=secondary, text_color=primary)
+        self.open_file_button.configure(fg_color=secondary, text_color=primary)
+        self.textbox.configure(fg_color=secondary, text_color=primary)
+        self.user_input.configure(fg_color=secondary, border_color=primary, text_color=primary)
+        self.reset_color_button.configure(fg_color=secondary, text_color=primary)
+
+        print("Colors reset")
         self.update_idletasks()
 
 
@@ -100,6 +134,10 @@ class mainGui(customtkinter.CTk):
         # Creates the quit button, upon clicking it will quit the program
         self.quit_button = customtkinter.CTkButton(self, text="Quit", command=self.destroy)
         self.quit_button.grid(row=0, column=3, padx=36, pady=20, columnspan=1)
+
+    def reset_color_button(self):
+        self.reset_color_button = customtkinter.CTkButton(self, text="Reset Colors", command=self.reset_colors)
+        self.reset_color_button.grid(row=0, column=4, padx=36, pady=20, columnspan=1)
     
     def run_button(self):
         # Creates a run button that will execute the commands in a .txt file
@@ -115,6 +153,7 @@ class mainGui(customtkinter.CTk):
         self.make_textbox()
         self.run_button()
         self.make_user_input()
+        self.reset_color_button()
         self.mainloop()
 
 def main():

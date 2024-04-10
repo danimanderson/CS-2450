@@ -10,6 +10,7 @@ def test_multiply():
     # This test ensures that accumulator is always 4 digits
     VM._memory._values = [Value("+0000"), Value("+0002"), Value("+3301"), Value("+0000"), Value("+4300")]
     VM._accumulator = Value("+0002")
+    VM._memory._legacy = True
     VM.run()
     assert(VM._accumulator.get_val() == "+0004")
 
@@ -19,6 +20,7 @@ def test_multiply2():
     # Sets Acc. to 0002 and gets multiplied by the 1st item in memory which is 0002 to form 0004 in the Acc.
     VM._memory._values = [Value("+0000"), Value("+0002"), Value("+3301"), Value("+0000"), Value("+4300")]
     VM._accumulator = Value("+1000")
+    VM._memory._legacy = True
     VM.run()
     assert(VM._accumulator.get_val() == "+2000")
 
@@ -29,6 +31,7 @@ def test_multiply3():
     lyst = ["+5212", "+0000", "+3300", "+0000", "+4300"]
     VM._memory._values = [Value(i) for i in lyst]
     VM._accumulator = Value("+5212")
+    VM._memory._legacy = True
     VM.run()
     assert(VM._accumulator.get_val() == "+4944")
 
@@ -38,6 +41,7 @@ def test_multiply4():
     lyst = ["+0000", "+0000", "+3399", "+4300"]
     VM._memory._values = [Value(i) for i in lyst]
     VM._accumulator = Value("+9999")
+    VM._memory._legacy = True
     with pytest.raises(IndexError):
         VM.run()
 
@@ -49,6 +53,7 @@ def test_divide():
     lyst = ["+0000", "+0002", "+3201", "+4300"]
     VM._memory._values = [Value(i) for i in lyst]
     VM._accumulator.set_val("+0050")
+    VM._memory._legacy = True
     VM.run()
     assert(VM._accumulator.get_val() == "+0025")
 
@@ -58,6 +63,7 @@ def test_divide2():
     lyst = ["+0000", "+0000", "+3299", "+4300"]
     VM._memory._values = [Value(i) for i in lyst]
     VM._accumulator = Value("+0002")
+    VM._memory._legacy = True
     with pytest.raises(IndexError):
         VM.run()
 
@@ -68,6 +74,7 @@ def test_branch():
     lyst = ["+0000", "+0002", "+4004", "+4300", "+3201", "+4300"]
     VM._memory._values = [Value(i) for i in lyst]
     VM._accumulator = Value("+0016")
+    VM._memory._legacy = True
     VM.run()
     assert(VM._accumulator.get_val() == "+0008")
 
@@ -78,6 +85,7 @@ def test_branch2():
     lyst = ["+0000", "+0016", "+4006", "+4300", "+3201", "+4300"]
     VM._memory._values = [Value(i) for i in lyst]
     VM._accumulator = Value("+0002")
+    VM._memory._legacy = True
     with pytest.raises(IndexError):
         VM.run()
 
@@ -87,6 +95,7 @@ def test_load():
     #sets the accumulator to the 2nd index in memory
     lyst = ["+2002", "+0000", "+9899", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     vm.run()
     assert vm._accumulator.get_val() == "+9899"
 
@@ -95,6 +104,7 @@ def test_load2():
     #checks if resize mem works
     lyst = ["+2099", "+0000", "+9899", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     assert vm._accumulator.get_val() == "+0000"
 
 def test_store():
@@ -104,6 +114,7 @@ def test_store():
     vm._accumulator = Value("+9999")
     lyst = ["+2101", "+0000", "+1234", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     vm.run()
     assert vm._memory._values[1].get_val() == "+9999"
 
@@ -113,6 +124,7 @@ def test_store2():
     vm._accumulator = Value("+4321")
     lyst = ["+2199", "+0000", "+1234", "+0000", "+0000", "+0000"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     vm.run()
     assert vm._memory._values[99].get_val() == "+4321"
 
@@ -123,6 +135,7 @@ def test_add():
     vm._accumulator = Value("+0002")
     lyst = ["+0000", "+0006", "+3001", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     vm.run()
     assert vm._accumulator.get_val()== "+0008"
 
@@ -132,6 +145,7 @@ def test_add2():
     vm._accumulator = Value("+1000")
     lyst = ["+0000", "+6000", "+3001", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     vm.run()
     assert vm._accumulator.get_val() == "+7000"
 
@@ -143,6 +157,7 @@ def test_subtract():
     vm._accumulator = Value("+0008")
     lyst = ["+0000", "+0002", "+3101", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     vm.run()
     assert vm._accumulator.get_val() == "+0006"
 
@@ -153,6 +168,7 @@ def test_subtract2():
     vm._accumulator = Value("+5000")
     lyst = ["+0000", "+6000", "+3101", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
+    vm._memory._legacy = True
     vm.run()
     assert vm._accumulator.get_val() == "-1000"
 
@@ -161,6 +177,7 @@ def test_negBranch():
     lyst = ["+0000", "+0008", "+4104", "+4300", "+3001", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
     vm._accumulator = Value("-0008")
+    vm._memory._legacy = True
     vm.run()
     assert vm._accumulator.get_val() == "+0000"
 
@@ -169,6 +186,7 @@ def test_read(): #Fischer
     VM._input = ['1234', '2345']
     lyst = ['+1007', '+1008', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM._memory._values = [Value(i) for i in lyst]
+    VM._memory._legacy = True
     VM.run()
     assert VM._memory._values[7].get_val() == '+2345'
 
@@ -177,6 +195,7 @@ def test_write():
     VM._input = ['1234', '2345']
     lyst = ['+1007', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM._memory._values = [Value(i) for i in lyst]
+    VM._memory._legacy = True
     VM.run()
     assert VM.write(0, 7) == "+1234"
 
@@ -184,6 +203,7 @@ def test_branchzero():
     VM = VirtualMachine()
     lyst = ["+4202","+4301", "+0000"]
     VM._memory._values = [Value(i) for i in lyst]
+    VM._memory._legacy = True
     with pytest.raises(IndexError):
         VM.run()
 
@@ -192,6 +212,7 @@ def test_negBranch2():
     lyst = ["+0000", "+0008", "+4104", "+4300", "+3001", "+4300"]
     vm._memory._values = [Value(i) for i in lyst]
     vm._accumulator = Value("-0007")
+    vm._memory._legacy = True
     vm.run()
     assert vm._accumulator.get_val() == "+0001"
 
@@ -200,6 +221,7 @@ def test_read2(): #Fischer
     VM._input = ['1234', '2345']
     lyst = ['+1008', '+1008', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM._memory._values = [Value(i) for i in lyst]
+    VM._memory._legacy = True
     VM.run()
     assert VM._memory._values[8].get_val() == '+2345'
 
@@ -208,6 +230,7 @@ def test_write2():
     VM._input = ['1234', '2345']
     lyst = ['+1008', '+2007', '+2008', '+2109', '+1109', '+4300']
     VM._memory._values = [Value(i) for i in lyst]
+    VM._memory._legacy = True
     VM.run()
     assert VM.write(0, 8) == "+1234"
 
@@ -216,6 +239,7 @@ def test_branchzero2():
     lyst = ["+4202", "+4300", "+3000", "+4300"]
     VM._memory._values = [Value(i) for i in lyst]
     VM._accumulator = Value("+0000")
+    VM._memory._legacy = True
     VM.run()
     assert VM._accumulator.get_val() == "+4202"
 
@@ -240,5 +264,37 @@ def test_reset():
 
     assert settings["CTk"]["fg_color"] == ["#275D38", "#275D38"] and settings["CTkFrame"]["top_fg_color"] == ["#FFFFFF", "#FFFFFF"]
 
+def test_updated_val():
+    VM = VirtualMachine()
+    VM._memory._values = [UpdatedValue("+000000"), UpdatedValue("+000002"), UpdatedValue("+033001"), UpdatedValue("+000000"), UpdatedValue("+043000")]
+    VM._accumulator = UpdatedValue("+000002")
+    VM.run()
+    assert(VM._accumulator.get_val() == "+000004")
 
+def test_updated_val_2():
+    #overflow
+    VM = VirtualMachine()
+    VM._memory._values = [UpdatedValue("+000000"), UpdatedValue("+999999"), UpdatedValue("+033001"), UpdatedValue("+000000"), UpdatedValue("+043000")]
+    VM._accumulator = UpdatedValue("+999999")
+    VM.run()
+    assert(VM._accumulator.get_val() == "+000001")
+
+def test_updated_val_3():
+    #Tests for memory length of 250
+    VM = VirtualMachine()
+    VM._memory._values = [UpdatedValue("+000000"), UpdatedValue("+999999"), UpdatedValue("+033001"), UpdatedValue("+000000"), UpdatedValue("+043000")]
+    VM._accumulator = UpdatedValue("+999999")
+    VM.resize_memory()
+    VM.run()
+    assert(len(VM._memory._values) == 250)
+
+def test_updated_val_4():
+    #Tests for exception with big file
+    VM = VirtualMachine()
+    new_list = [Value()] * 255
+    for i in range(VM._memory.size()):
+        new_list[i] = VM._memory._values[i]
+    VM._memory._values = new_list
+    with pytest.raises(ValueError):
+        VM.run()
 

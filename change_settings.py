@@ -23,6 +23,7 @@ def change_primary(primary_hex):
     settings["CTkOptionMenu"]["border_color"] = primary
     settings["CTkComboBox"]["border_color"] = primary
     settings["CTkTextbox"]["border_color"] = primary
+    settings["CTkTextbox"]["text_color"] = primary
     
     with open('settings.json', 'w') as fout:
         json.dump(settings, fout, indent=4)
@@ -82,6 +83,7 @@ def reset_colors():
     settings["CTkOptionMenu"]["border_color"] = primary
     settings["CTkComboBox"]["border_color"] = primary
     settings["CTkTextbox"]["border_color"] = primary
+    settings["CTkTextbox"]["text_color"] = primary
     
     settings["CTkFrame"]["top_fg_color"] = secondary
     settings["CTkEntry"]["fg_color"] = secondary

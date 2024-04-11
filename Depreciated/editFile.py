@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-import customtkinter
+from customtkinter import *
 from VirtualMachine import *
 import main
 
@@ -124,3 +124,6 @@ class EditFile():
         
 
 
+afile = EditFile()
+
+afile.create_gui()

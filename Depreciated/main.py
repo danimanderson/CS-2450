@@ -1,5 +1,5 @@
 import tkinter
-import customtkinter 
+from customtkinter import *
 import SettingGui
 from VirtualMachine import *
 from tkinter import colorchooser

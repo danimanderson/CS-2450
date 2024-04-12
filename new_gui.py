@@ -8,6 +8,7 @@ import change_settings as change
 import json
 from VirtualMachine import *
 from topLevel import *
+from required_input_popup import *
 
 class mainGui(customtkinter.CTk):
     def __init__(self):
@@ -21,27 +22,26 @@ class mainGui(customtkinter.CTk):
         self.configure(fg_color=settings["CTk"]["fg_color"][0])
 
         self.title("UVsim")
-        self.geometry("1050x700")
+        self.geometry("1100x800")
         self.grid_columnconfigure(0, weight=0)
         self.grid_rowconfigure(5, weight=1)
 
-
     def make_frame(self):
         # Creates a frame to hold the run button and the text box
-        self.text_frame = customtkinter.CTkFrame(master=self, width=500, height=200)
-        self.text_frame.grid(row=5, column=1, padx=20, pady=(20, 0), columnspan=2)
+        self.text_frame = customtkinter.CTkFrame(master=self, width=500, height=600)
+        self.text_frame.grid(row=5, column=1, columnspan=3)
     
 
     def make_textbox(self):
         # This creates the textbox that will hold all the values
-        self.textbox = customtkinter.CTkTextbox(master=self.text_frame, width=250, height=300, corner_radius=10)
-        self.textbox.grid(row=0, column=0, sticky="nsew")
+        self.textbox = customtkinter.CTkTextbox(master=self.text_frame, width=250, height=400, corner_radius=10)
+        self.textbox.grid(row=1, column=1)
     
 
     def make_user_input(self):
         # Creates a user input box when the uvsim needs user input
         self.user_input = customtkinter.CTkEntry(self.text_frame, placeholder_text="Inputs Ex. 1234")
-        self.user_input.grid(row=1, column=0, padx=20, pady=20, columnspan=1)
+        self.user_input.grid(row=2, column=1, padx=36, pady=20, columnspan=1)
         
 
     def open_file(self):
@@ -54,7 +54,9 @@ class mainGui(customtkinter.CTk):
     def new_instance(self):
         additional_gui = ToplevelWindow()
         additional_gui.create_gui()
-        self.update_idletasks()
+        change.change_primary(primary_color[1])
+        self.configure(fg_color=primary_color[1])
+        self.text_frame.configure(fg_color=primary_color[1])
 
     def change_color(self):
         # Pulls up a color wheel and then sets a primary color
@@ -77,7 +79,6 @@ class mainGui(customtkinter.CTk):
         self.new_instance_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
 
         # Refreshes the gui so the colors are applied
-        print("Colors have been changed!")
         self.update_idletasks()
 
     
@@ -98,8 +99,6 @@ class mainGui(customtkinter.CTk):
         self.user_input.configure(fg_color=secondary, border_color=primary, text_color=primary)
         self.reset_color_button.configure(fg_color=secondary, text_color=primary)
         self.new_instance_button.configure(fg_color=secondary, text_color=primary)
-
-        print("Colors reset")
         self.update_idletasks()
 
 
@@ -110,15 +109,19 @@ class mainGui(customtkinter.CTk):
         with open(file.name, 'w') as file_to_save:
             file_to_save.write(self.textbox.get(1.0, END))
 
+    def clear(self):
+        file_text = list(self.textbox.delete("0.0", "end"))
+
 
     def run(self):
-        # file_text = list(self.textbox.get("0.0", "end"))
         file_text = self.file_to_open
-        # print(isinstance(file_text, list))
         inputs = self.user_input.get()
+        VM = VirtualMachine(file_text)
+        VM.set_inputs(inputs)
+        valid, required_inputs = VM.validate_inputs()
+        if valid == False:
+            required_inputs_pop_up = RequiredInputPopUp(required_inputs)
         try:
-            VM = VirtualMachine(file_text)
-            VM.set_inputs(inputs)
             VM.run()
         except FileNotFoundError:
             assert False, self.textbox.insert("end", "File is not found!")
@@ -163,11 +166,15 @@ class mainGui(customtkinter.CTk):
     def run_button(self):
         # Creates a run button that will execute the commands in a .txt file
         self.run_button = customtkinter.CTkButton(self.text_frame, text="Run", command=self.run)
-        self.run_button.grid(row=2, column=0, padx=20, pady=20, columnspan=1)
+        self.run_button.grid(row=3, column=1, padx=20, pady=20, columnspan=1)
 
     def new_instance_button(self):
-        self.new_instance_button = customtkinter.CTkButton(self, text="New Instance", command=self.new_instance)
-        self.new_instance_button.grid(row=1, column=3, padx=36, pady=20, columnspan=1)
+        self.new_instance_button = customtkinter.CTkButton(self.text_frame, text="New Instance", command=self.new_instance)
+        self.new_instance_button.grid(row=3, column=2, padx=36, pady=20, columnspan=1)
+
+    def clear_button(self):
+        self.new_instance_button = customtkinter.CTkButton(self.text_frame, text="Clear", command=self.clear)
+        self.new_instance_button.grid(row=3, column=0, padx=36, pady=20, columnspan=1)
     
 
     def create_gui(self):
@@ -181,6 +188,7 @@ class mainGui(customtkinter.CTk):
         self.make_user_input()
         self.reset_color_button()
         self.new_instance_button()
+        self.clear_button()
         self.mainloop()
 
 

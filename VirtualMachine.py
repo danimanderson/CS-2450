@@ -6,6 +6,9 @@ class VirtualMachine:
         self._accumulator = Value()
         self._output = "Output:\n"
         self._input = []
+        self._length_of_data = len(self._memory._values[0].get_val())
+        self._legacy_length = 5 #5 including the +/-
+        self._updated_length = 7 #7 including the +/-
 
     def set_inputs(self, new):
         if new != "":
@@ -21,6 +24,12 @@ class VirtualMachine:
                 required_inputs += 1
         if required_inputs != len(self._input):
             return False, required_inputs
+    
+        for single_input in self._input:
+            single_input = single_input.strip()
+            if len(single_input) != self._length_of_data - 1:
+                raise TypeError("Values and inputs must all be 4 or all 6 digits in length.")
+                
         return True, required_inputs
     
     def sign(self, val):
@@ -57,13 +66,21 @@ class VirtualMachine:
         text += "\n------------------------\n"
         return text
     
-    def validate(self):
+    def validate_length(self):
         if len(self._memory._values) > 250:
             raise ValueError("Program too long.")
         
+    def check_data_uniformity(self):
+        #Checks to see if all the data members in the file have the same length
+        if self._length_of_data != self._legacy_length and self._length_of_data != self._updated_length:
+            raise TypeError("Values must all be 4 or all 6 digits in length.")
+        for data_member in self._memory._values:
+            if ((len(data_member.get_val()) != self._length_of_data) and (data_member.get_val() != "")):
+                raise TypeError("Values must all be 4 or all 6 digits in length.")
 
     def run(self):
-        self.validate()
+        self.validate_length()
+        self.check_data_uniformity()
         count = 0
         while True:
             curr_operator = self._memory._values[count].operator()

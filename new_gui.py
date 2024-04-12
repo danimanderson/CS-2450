@@ -118,18 +118,23 @@ class mainGui(customtkinter.CTk):
         inputs = self.user_input.get()
         VM = VirtualMachine(file_text)
         VM.set_inputs(inputs)
-        valid, required_inputs = VM.validate_inputs()
+        try:
+            valid, required_inputs = VM.validate_inputs()
+        except TypeError:
+            assert False, self.textbox.insert("end", f"\n\nInputs must all be {VM._length_of_data - 1} digits in \nlength.")
         if valid == False:
             required_inputs_pop_up = RequiredInputPopUp(required_inputs)
         try:
             VM.run()
         except FileNotFoundError:
-            assert False, self.textbox.insert("end", "File is not found!")
+            assert False, self.textbox.insert("end", "\n\nFile is not found!")
         except ValueError:
-            assert False, self.textbox.insert("end", "Invalid input!")
+            assert False, self.textbox.insert("end", "\n\nInvalid input!")
         except IndexError:
-            self.textbox.insert("end", "\n Invalid memory address or no \n more executable instructions!")
+            self.textbox.insert("end", "\n\nInvalid memory address or no \n more executable instructions!")
             assert False, "\n Invalid memory address or no \n more executable instructions!"
+        except TypeError:
+             assert False, self.textbox.insert("end", f"\n\nValues in file must all be {VM._length_of_data - 1} digits in \nlength and have a +/- beforehand.")
         # Adds the output to the textbox. Newlines for formatting
         self.textbox.insert("end", f"\n \n {VM.get_output()} {VM}")
 

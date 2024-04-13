@@ -5,8 +5,8 @@ from tkinter.colorchooser import askcolor
 import change_settings as change
 import json
 from VirtualMachine import *
-class RequiredInputPopUp(customtkinter.CTkToplevel):
 
+class RequiredInputPopUp(customtkinter.CTkToplevel):
     def __init__(self, invalid_inputs, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.invaid = invalid_inputs
@@ -20,8 +20,3 @@ class RequiredInputPopUp(customtkinter.CTkToplevel):
         self.geometry("310x200")
         self.label = customtkinter.CTkLabel(self, text=f"{self.invaid} inputs are required!\n Please enter in input box. \n(Ex: 1234, 5678, etc) then run", font=("arial", 20), text_color="white")
         self.label.pack(padx=20, pady=20)
-
-
-# abox = RequiredInputPopUp()
-
-# abox.mainloop()

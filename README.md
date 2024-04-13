@@ -3,9 +3,10 @@ In order to launch the GUI from the command line enter: pip install tkinter.
 Then from the command line enter: pip install customtkinter.
 In order to launch the application from the command line enter: 'py -m main' or 'python3 main.py' (without quotation marks).
 
-Once you run main.py in the terminal you will two  windows that open up. One that has a singular buttonn named "Settings" and another window that has buttons for opening files. 
-If you wish to change the color feel free to do so in settings button. You'll have the option to set a primary color and secondary color.
-This will only accept hex values, for example #FFFFFF is white in hex. Once you set the colors, do not close out of the settings window.
+Once you run main.py in the terminal you will the main gui window open up. Below is a screenshot of what the main gui looks like.
+
+ <img src="gui_screenshot.jpg" alt="Alt Text">
+
 
 Now you will navigate to the other window. Here you can open a file anywhere in your computers directory, it must be a .txt file. Once the file is opened up, you can view the file and edit to your liking.
 Please keep in mind that you can only have 100 lines of commands in the text file. Once you're happy with your changes, hit assemble and it will open a new window. You can then just click run and it will execute the program.

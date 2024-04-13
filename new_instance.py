@@ -69,7 +69,7 @@ class ToplevelWindow(customtkinter.CTkToplevel):
         self.textbox.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
         self.user_input.configure(fg_color=secondary_color2[1], border_color=primary_color[1], text_color=primary_color[1])
         self.reset_color_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
-        self.new_instance_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
+        self.clear_button.configure(fg_color=secondary_color2[1], text_color=primary_color[1])
 
         # Refreshes the gui so the colors are applied
         self.update_idletasks()
@@ -91,7 +91,7 @@ class ToplevelWindow(customtkinter.CTkToplevel):
         self.textbox.configure(fg_color=secondary, text_color=primary)
         self.user_input.configure(fg_color=secondary, border_color=primary, text_color=primary)
         self.reset_color_button.configure(fg_color=secondary, text_color=primary)
-        self.new_instance_button.configure(fg_color=secondary, text_color=primary)
+        self.clear_button.configure(fg_color=secondary, text_color=primary)
 
         print("Colors reset")
         self.update_idletasks()
@@ -161,8 +161,8 @@ class ToplevelWindow(customtkinter.CTkToplevel):
         self.run_button.grid(row=3, column=1, padx=20, pady=20, columnspan=1)
 
     def clear_button(self):
-        self.new_instance_button = customtkinter.CTkButton(self.text_frame, text="Clear", command=self.clear)
-        self.new_instance_button.grid(row=3, column=0, padx=36, pady=20, columnspan=1)
+        self.new_clear_button = customtkinter.CTkButton(self.text_frame, text="Clear", command=self.clear)
+        self.new_clear_button.grid(row=3, column=0, padx=36, pady=20, columnspan=1)
     
     def create_gui(self):
         self.open_file_button()

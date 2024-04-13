@@ -52,7 +52,7 @@ class mainGui(customtkinter.CTk):
             self.textbox.insert(END, values)
 
     def new_instance(self):
-        additional_gui = ToplevelWindow()
+        additional_gui = newInstanceWindow()
         additional_gui.create_gui()
         change.change_primary(primary_color[1])
         self.configure(fg_color=primary_color[1])

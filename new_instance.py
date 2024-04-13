@@ -8,7 +8,7 @@ import json
 from VirtualMachine import *
 from required_input_popup import *
 
-class ToplevelWindow(customtkinter.CTkToplevel):
+class newInstanceWindow(customtkinter.CTkToplevel):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

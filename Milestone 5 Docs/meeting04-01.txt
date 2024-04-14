@@ -1,0 +1,7 @@
+- Checked on status of tasks
+
+- Mentioned that we would have to change the way we parse data due to gui changes
+
+- Asked if anyone needed help
+
+- Everyone attended

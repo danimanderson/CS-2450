@@ -136,11 +136,10 @@ USE CASES:
     System: Color Change Class, editing .json file
     Goal: Change the primary color to a specified color then save it to be accessed next time.
 
-    1. Check to see if the hex code is a valid hex code
-    2. Open .json file to be prepared to edit.
-    3. Set specified hex code to all "primary" background colors.
-    4. Save .json file.
-    5. Close and reopen the GUI to see new colors.
+    1. Open color wheel and choose color.
+    2. Set specified hex code to all "secondary" colors.
+    3. Save .json file.
+    4. Close and reopen the GUI to see new colors.
 
 
 12.
@@ -149,8 +148,36 @@ USE CASES:
     System: Color Change Class, editing .json file
     Goal: Change the secondary color to a specified color then save it to be accessed next time.
 
-    1. Check to see if the hex code is a valid hex code
-    2. Open .json file to be prepared to edit.
-    3. Set specified hex code to all "secondary" colors.
-    4. Save .json file.
-    5. Close and reopen the GUI to see new colors.
+    1. Open color wheel and choose color.
+    2. Set specified hex code to all "secondary" colors.
+    3. Save .json file.
+    
+
+
+13.
+    Reset Command
+    Actor: Reset Algorithm
+    System: Clearing text box
+    Goal: Clear the text box to prepare it for a new file.
+
+    1. Click the clear button.
+    2. Text box is cleared.
+
+14.
+    Save Command
+    Actor: Save Algorithm
+    System: Save class
+    Goal: Save any change you have made to the file you opened, whether as the existing file or new file
+
+    1. After changes are made click save
+    2. You have the option to "save as" or just save.
+    3. File is updated and able to be reopened with new changes
+
+15.
+    New Instance Command
+    Actor: New Instance Algorithm
+    System: New Instance class
+    Goal: Create a child instance of the app.
+
+    1. Click on new instance button
+    2. Use the program as you normally would.

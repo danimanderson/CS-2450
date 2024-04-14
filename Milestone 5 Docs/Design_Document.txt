@@ -181,3 +181,20 @@ USE CASES:
 
     1. Click on new instance button
     2. Use the program as you normally would.
+
+16. Reset Colors Command
+    Actor: Reset Colors Button/Algorithm
+    System: Tkinter, Gui
+    Goal: Reset the color to UVU colors after someone has changed the colors.
+
+    1. Click on reset colors
+    2. Colors should be resetted back to UVU colors
+
+17. Open File Command
+    Actor: Open File Button/Algorithm
+    System: Computer OS
+    Goal: Allows you to open up your computers directory and choose the file that you want.
+
+    1. Click on open file button
+    2. Pick file of your choosing.
+    3. File now displays in text box.

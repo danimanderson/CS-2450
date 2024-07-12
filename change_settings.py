@@ -2,6 +2,7 @@ import json
 import tkinter as tk
 import customtkinter
 
+"""git comment change"""
 
 def change_primary(primary_hex):
     primary = [primary_hex, primary_hex]
@@ -9,7 +10,7 @@ def change_primary(primary_hex):
     with open('settings.json', 'r') as fin:
         settings = json.load(fin)
 
-    settings["CTk"]["fg_color"] = primary
+    settings["CTk"]["fg_color"] = primary 
     settings["CTkToplevel"]["fg_color"] = primary
     settings["CTkFrame"]["fg_color"] = primary
     settings["CTkFrame"]["border_color"] = primary
